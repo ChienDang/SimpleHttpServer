@@ -41,9 +41,10 @@ namespace HDTCP.Util {
                             success = true;
                         }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     success = false;
+                    Console.WriteLine("Do not permission acess file!");
                 }
             }
             if (success) return true;
@@ -144,7 +145,7 @@ namespace HDTCP.Util {
             {
                 String fileName = p.httpHeaders["X-File-Name"].ToString();
                 String fullpath = "C:/" + fileName;
-                if (CheckDirectoryAccess(fullpath) == false) Console.WriteLine("Do not have permission to access file!");
+                CheckDirectoryAccess(fullpath);
                 Int64 startOffset = Convert.ToInt64(p.httpHeaders["X-Start-Offset"]);
                 Int64 contenSize = Convert.ToInt64(p.httpHeaders["X-File-Size"]);
                 FileStream ms = null;
