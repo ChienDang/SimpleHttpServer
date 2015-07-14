@@ -22,34 +22,7 @@ namespace HDTCP.Util {
         public const int BUF_SIZE = 4096;
 
         #region HTTP
-        //public bool CheckDirectoryAccess(string directory)
-        //{
-        //    bool success = false;
-            
-        //    if (Directory.Exists(directory))
-        //     {
-        //        try
-        //        {
-        //            using (FileStream fs = new FileStream(directory, FileMode.CreateNew, FileAccess.Write))
-        //            {
-        //                fs.WriteByte(0xff);
-        //            }
-
-        //            if (File.Exists(directory))
-        //                {
-        //                    File.Delete(directory);
-        //                    success = true;
-        //                }
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            success = false;
-        //            Console.WriteLine("Do not permission acess file!");
-        //        }
-        //    }
-        //    if (success) return true;
-        //    else return false;
-        //    }
+        
         public override void handleGETRequest (HttpProcessor p)
 		{
 
@@ -145,7 +118,6 @@ namespace HDTCP.Util {
             {
                 String fileName = p.httpHeaders["X-File-Name"].ToString();
                 String fullpath = "C:/" + fileName;
-                //CheckDirectoryAccess(fullpath);
                 Int64 startOffset = Convert.ToInt64(p.httpHeaders["X-Start-Offset"]);
                 Int64 contenSize = Convert.ToInt64(p.httpHeaders["X-File-Size"]);
                 FileStream ms = null;
@@ -172,9 +144,9 @@ namespace HDTCP.Util {
                 ms.Flush();
                 ms.Close();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Console.WriteLine("Error" + ex);
+                Console.WriteLine("!!!Error: You do not have permission to acess this folder!");
             }
             return total;
         }
